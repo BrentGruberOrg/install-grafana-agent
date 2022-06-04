@@ -132,7 +132,7 @@ install_rpm() {
 # retrieve_config downloads the config file for the Agent and prints out its
 # contents to stdout.
 retrieve_config() {
-  cat "fake"
+  curl https://raw.githubusercontent.com/BrentGruberOrg/install-grafana-agent/main/profiles/${GAGENT_PROFILE}/grafana-agent.yaml
 }
 
 main
