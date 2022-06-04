@@ -87,6 +87,7 @@ main() {
   echo "GCLOUD_METRICS_USER=${GCLOUD_METRICS_USER}" >> /etc/default/grafana-agent
   echo "GCLOUD_LOGS_USER=${GCLOUD_LOGS_USER}" >> /etc/default/grafana-agent
   echo "GCLOUD_TRACES_USER=${GCLOUD_TRACES_USER}" >> /etc/default/grafana-agent
+sed 's/CUSTOM_ARGS="/CUSTOM_ARGS="-config.expand-env /' /etc/default/grafana-agent
 
   log '--- Enabling and starting grafana-agent.service'
   sudo systemctl enable grafana-agent.service
