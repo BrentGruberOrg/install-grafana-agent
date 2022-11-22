@@ -30,5 +30,3 @@ logs:
         basic_auth:
           username: ${GCLOUD_LOGS_USER}
           password: ${GCLOUD_PASSWORD}
-server:
-  http_listen_port: 12345
