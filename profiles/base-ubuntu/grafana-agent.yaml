@@ -1,0 +1,34 @@
+integrations:
+  node_exporter:
+    enabled: true
+    rootfs_path: /
+    sysfs_path: /sys
+    procfs_path: /proc
+  prometheus_remote_write:
+  - basic_auth:
+      password: ${GCLOUD_PASSWORD}
+      username: ${GCLOUD_METRICS_USER}
+    url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+logs:
+  configs:
+  - name: default
+    positions:
+      filename: /tmp/positions.yaml
+    scrape_configs:
+      - job_name: journal
+        journal:
+          json: false
+          max_age: 12h
+          path: /var/log/journal
+          labels:
+            job: systemd-journal
+        relabel_configs:
+          - source_labels: ['__journal__systemd_unit']
+            target_label: 'unit'
+    clients:
+      - url: https://logs-prod-us-central1.grafana.net/loki/api/v1/push
+        basic_auth:
+          username: ${GCLOUD_LOGS_USER}
+          password: ${GCLOUD_PASSWORD}
+server:
+  http_listen_port: 12345
